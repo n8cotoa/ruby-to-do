@@ -1,6 +1,7 @@
 require('rspec')
 require('pg')
 require('list')
+require('task')
 require("spec_helper")
 
 DB = PG.connect({:dbname => 'to_do_test'})
@@ -46,6 +47,20 @@ describe(List) do
       list1 = List.new({:name => "Epicodus stuff", :id => nil})
       list2 = List.new({:name => "Epicodus stuff", :id => nil})
       expect(list1).to(eq(list2))
+    end
+  end
+
+  describe("#sort_task") do
+    it("sort tasks into correct lists") do
+      test_list = List.new({:name => "Epicodus Stuff", :id => nil})
+      test_list.save()
+      task1 = Task.new({:description => "Learn SQL", :list_id => test_list.id, :due_date => Date.new(2018, 7, 25)})
+      task1.save()
+      task2 = Task.new({:description => "Learn Ruby", :list_id => 2, :due_date => Date.new(2018, 7, 13)})
+      task2.save()
+      task3 = Task.new({:description => "Learn Java", :list_id => test_list.id, :due_date => Date.new(2018, 7, 29)})
+      task3.save()
+      expect(test_list.sort_task).to(eq([task1, task3]))
     end
   end
 end

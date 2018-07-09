@@ -53,9 +53,9 @@ describe(Task) do
     it("sort tasks by due date") do
       task1 = Task.new({:description => "Learn SQL", :list_id => 1, :due_date => Date.new(2018, 7, 25)})
       task1.save()
-      task2 = Task.new({:description => "Learn Ruby", :list_id => 2, :due_date => Date.new(2018, 7, 13)})
+      task2 = Task.new({:description => "Learn Ruby", :list_id => 1, :due_date => Date.new(2018, 7, 13)})
       task2.save()
-      task3 = Task.new({:description => "Learn Java", :list_id => 3, :due_date => Date.new(2018, 7, 29)})
+      task3 = Task.new({:description => "Learn Java", :list_id => 1, :due_date => Date.new(2018, 7, 29)})
       task3.save()
       Task.sort()
       expect(Task.sort()).to(eq([task2, task1,task3]))
